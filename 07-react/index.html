@@ -130,8 +130,6 @@
                         <ol>
                             <li class="fragment">Компонентный подход</li>
                             <li class="fragment">Эффективная абстракция над DOM</li>
-                            <li class="fragment">Изоморфный код</li>
-                            <li class="fragment">Реактивный рендеринг</li>
                         </ol>
                     </div>
                 </section>
@@ -152,6 +150,18 @@
 
                 <section class="center" data-background-image="./images/repaint-components.gif"
                          data-background-size="contain"></section>
+
+                <section class="center">
+                    <h2 style="font-weight: bold;">Концепции React</h2>
+                    <div style="display: flex; justify-content: center; font-size: 40px">
+                        <ol>
+                            <li>Компонентный подход</li>
+                            <li>Эффективная абстракция над DOM</li>
+                            <li class="fragment">Изоморфный код</li>
+                            <li class="fragment">Реактивный рендеринг</li>
+                        </ol>
+                    </div>
+                </section>
 
                 <section class="center">
                     <h2 style="font-weight: bold;">Первый компонент</h2>
@@ -641,6 +651,23 @@
                         Note.contextType = ThemeContext
                     </code></pre>
                 </section>
+                <section class="center">
+                    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                        Контекст&nbsp;<span class="grey" style="font-size: 40px;">(Context)</span></h2>
+                    <pre><code class="javascript" data-trim data-noescape>
+                        import ThemeContext from './ThemeContext.js';
+                        <span style="opacity: 0.2">
+                        class Note extends React.Component {
+                            render() {</span>
+                                return (
+                                    &lt;div className={this.context}>&lt/div>
+                                );
+                            <span style="opacity: 0.2">}
+                        }</span>
+
+                        Note.contextType = ThemeContext
+                    </code></pre>
+                </section>
 
                 <section class="center">
                     <h2 style="font-weight: bold;">Потомки</h2>
@@ -669,12 +696,45 @@
                     <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Потомки&nbsp;<span
                             class="grey" style="font-size: 40px;">(Children)</span></h2>
                     <pre><code class="language-javascript" data-trim data-noescape>
+                        <span style="opacity: 0.2">function Notes() {
+                            return (
+                                &lt;<span class="hljs-name">div</span> <span
+                        class="hljs-attr">className</span>=<span class="hljs-string">"notes"</span>></span>
+                                    &lt;Note name="Books">
+                                        &lt;span>Books to read&lt;/span>
+                                        &lt;button>Like!&lt;/button>
+                                    &lt;/Note><span style="opacity: 0.2">
+                                &lt;/<span class="hljs-name">div</span>>
+                            );
+                        }</span>
+                    </code></pre>
+                </section>
+
+                <section class="center">
+                    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Потомки&nbsp;<span
+                            class="grey" style="font-size: 40px;">(Children)</span></h2>
+                    <pre><code class="language-javascript" data-trim data-noescape>
                         function Note(props) {
                             return (
                                 &lt;div className="note">
                                     &lt;h1>{props.name}&lt;/h1>
                                     &lt;p>{props.children}&lt;/p>
                                 &lt;/div>
+                            );
+                        }
+                    </code></pre>
+                </section>
+
+                <section class="center">
+                    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Потомки&nbsp;<span
+                            class="grey" style="font-size: 40px;">(Children)</span></h2>
+                    <pre><code class="language-javascript" data-trim data-noescape>
+                        function Note(props) {
+                            <span style="opacity: .2">return (
+                                &lt;div className="note">
+                                    &lt;h1>{props.name}&lt;/h1></span>
+                                    &lt;p>{props.children}&lt;/p><span style="opacity: .2">
+                                &lt;/div></span>
                             );
                         }
                     </code></pre>
@@ -742,7 +802,7 @@
 
                                 <span style="opacity: .2;">this.viewFull = this.viewFull.bind(this);</span>
                             }
-                            <span style="opacity: .2;">viewFull() { this.setState({ viewType: 'full' }); }</span>
+                            <span style="opacity: .2;">viewFull() { this.setState({ viewType: 'full' }); }
                             render() {
                                 const { viewType } = this.state;
 
@@ -763,20 +823,21 @@
                         }
                     </code></pre>
                 </section>
-
                 <section class="center">
                     <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
                         Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
                     <pre><code class="javascript" data-trim data-noescape style="font-size: 16px">
                         export default class Note extends React.Component {
-                            <span style="opacity: .2;">state = { viewType: 'short' }
+                            <span style="opacity: .2;">constructor() {
+                                this.state = { viewType: 'short' };
 
-                            viewFull = () => this.setState({ viewType: 'full' })</span>
-
+                                this.viewFull = this.viewFull.bind(this);
+                            }
+                            viewFull() { this.setState({ viewType: 'full' }); }</span>
                             render() {
                                 const { viewType } = this.state;
-
-                                <span style="opacity: .2;">return (
+                                <span style="opacity: .2;">
+                                return (
                                     &lt;div className="note">
                                         &lt;h1>Название заметки&lt;/h1></span>
                                         {viewType === <span class="hljs-string">'short'</span>
@@ -786,9 +847,9 @@
                                                     &lt;button onClick={this.viewFull}>Читать подробнее&lt;/button>
                                                 &lt;/React.Fragment>
                                             ) : &lt;p>Полный текст&lt;/p>
-                                        }<span style="opacity: .2;">
-                                    &lt;/div>
-                                );</span>
+                                        }
+                                    <span style="opacity: .2;">&lt;/div>
+                                );                                      </span>
                             }
                         }
                     </code></pre>
@@ -799,10 +860,12 @@
                         Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
                     <pre><code class="javascript" data-trim data-noescape style="font-size: 16px">
                         export default class Note extends React.Component {
-                            <span style="opacity: .2;">state = { viewType: 'short' }</span>
+                            constructor() {
+                                <span style="opacity: .2;">this.state = { viewType: 'short' };</span>
 
-                            viewFull = () => this.setState({ viewType: 'full' })
-
+                                this.viewFull = this.viewFull.bind(this);
+                            }
+                            viewFull() { this.setState({ viewType: 'full' }); }
                             <span style="opacity: .2;">render() {
                                 const { viewType } = this.state;
 
@@ -813,7 +876,7 @@
                                             ? (
                                                 &lt;React.Fragment>
                                                     &lt;p>Краткое содержание&lt;/p>
-                                                    &lt;button onClick={this.viewFull}>Читать подробнее&lt;/button>
+                                                    &lt;button </span>onClick={this.viewFull}<span style="opacity: .2;">>Читать подробнее&lt;/button>
                                                 &lt;/React.Fragment>
                                             ) : &lt;p>Полный текст&lt;/p>
                                         }
@@ -849,6 +912,42 @@
 
                 <section class="center">
                     <img src="images/lifecycle.jpg">
+                </section>
+
+                <section class="center">
+                    <style>
+                        .image-hl {
+                            position: relative;
+                        }
+                        .image-hl .cover
+                        {
+                            content: '';
+                            position: absolute;
+                            background: rgba(255, 255, 255, 0.58);
+                            left: 0;
+                            top: 0;
+                            bottom: 0;
+                            right: 0;
+                        }
+                    </style>
+                    <div class="image-hl">
+                        <img src="images/lifecycle.jpg">
+                        <div class="cover" style="left: 7.6em;"></div>
+                    </div>
+                </section>
+
+                <section class="center">
+                    <div class="image-hl image-hl_center">
+                        <img src="images/lifecycle.jpg">
+                        <div class="cover" style="right: 11.5em"></div>
+                        <div class="cover"style="left: 14.3em"></div>
+                    </div>
+                </section>
+                <section class="center">
+                    <div class="image-hl image-hl_center">
+                        <img src="images/lifecycle.jpg">
+                        <div class="cover" style="right: 4.9em"></div>
+                    </div>
                 </section>
 
                 <section class="center">
