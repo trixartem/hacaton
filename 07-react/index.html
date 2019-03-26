@@ -765,9 +765,9 @@
                         Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
                     <pre><code class="javascript" data-trim data-noescape style="font-size: 16px">
                         export default class Note extends React.Component {
-                            constructor() {
+                            constructor(props) {
+                                super(props);
                                 this.state = { viewType: 'short' };
-
                                 this.viewFull = this.viewFull.bind(this);
                             }
                             viewFull() { this.setState({ viewType: 'full' }); }
@@ -797,9 +797,9 @@
                         Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
                     <pre><code class="javascript" data-trim data-noescape style="font-size: 16px">
                         export default class Note extends React.Component {
-                            constructor() {
+                            constructor(props) {
+                                <span style="opacity: .2;">super(props);</span>
                                 this.state = { viewType: 'short' };
-
                                 <span style="opacity: .2;">this.viewFull = this.viewFull.bind(this);</span>
                             }
                             <span style="opacity: .2;">viewFull() { this.setState({ viewType: 'full' }); }
@@ -828,9 +828,9 @@
                         Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
                     <pre><code class="javascript" data-trim data-noescape style="font-size: 16px">
                         export default class Note extends React.Component {
-                            <span style="opacity: .2;">constructor() {
+                            <span style="opacity: .2;">constructor(props) {
+                                super(props);
                                 this.state = { viewType: 'short' };
-
                                 this.viewFull = this.viewFull.bind(this);
                             }
                             viewFull() { this.setState({ viewType: 'full' }); }</span>
@@ -860,9 +860,9 @@
                         Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
                     <pre><code class="javascript" data-trim data-noescape style="font-size: 16px">
                         export default class Note extends React.Component {
-                            constructor() {
-                                <span style="opacity: .2;">this.state = { viewType: 'short' };</span>
-
+                            constructor(props) {
+                                <span style="opacity: .2;">super(props);
+                                this.state = { viewType: 'short' };</span>
                                 this.viewFull = this.viewFull.bind(this);
                             }
                             viewFull() { this.setState({ viewType: 'full' }); }
@@ -1435,6 +1435,7 @@
                 <section class="center">
                     <h2 style="font-weight: bold;">Посмотреть</h2>
                     <div style="text-align: center;">
+                        <a href="https://codesandbox.io/s/j79jqm0m6v">Пример с заметками</a><br>
                         <a href="https://courses.totalreact.com/p/advanced-react-free">Advanced React.js</a><br>
                         <a href="https://www.youtube.com/watch?v=XLJN4JfniH4">How React Context API works</a><br>
                         <a href="https://egghead.io/courses/the-beginner-s-guide-to-reactjs">The Beginner's Guide to ReactJS</a><br>
